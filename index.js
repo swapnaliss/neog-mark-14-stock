@@ -11,6 +11,11 @@ function submitHandler(){
     var ip = Number(initialPrice.value);
     var qty  = Number(stocksQuantity.value);
     var curr = Number(currentPrice.value);
+    if (initialPrice.value == "" || stocksQuantity.value == "" || currentPrice.value == "") {
+    showOutput("Please enter a valid number");
+  } else if (ip <= 0 || qty <= 0 || curr <= 0) {
+    showOutput("Please enter a valid number");
+  } else {
 
     calculateProfitAndLoss(ip,qty,curr);
 }
@@ -39,3 +44,4 @@ function showOutput(message) {
   outputBox.innerHTML = message;
 }
 
+}
