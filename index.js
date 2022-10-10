@@ -12,9 +12,9 @@ function submitHandler(){
     var qty  = Number(stocksQuantity.value);
     var curr = Number(currentPrice.value);
     if (initialPrice.value == "" || stocksQuantity.value == "" || currentPrice.value == "") {
-    showOutput("Please enter a valid number");
-  } else if (ip <= 0 || qty <= 0 || curr <= 0) {
-    showOutput("Please enter a valid number");
+    showOutput("Field should not be empty" , "red");
+  } else if (ip <= 0 || qty <= 0 || curr < 0) {
+    showOutput("Price and Quantity should be greater than zero" , "red");
   } else {
 
     calculateProfitAndLoss(ip,qty,curr);
@@ -23,25 +23,26 @@ function submitHandler(){
 function calculateProfitAndLoss(initial , quantity , current){
     if (initial > current){
         var loss = (initial - current) * quantity;
-        var lossPercentage = (loss / initial) * 100;
+       var lossPercentage = (loss * 100) / (initial * quantity);
 
         showOutput(
-          `Hey, the loss is ${loss} and the percent is ${lossPercentage}%`
+          `Hey, the loss is ${loss} and the percent is ${lossPercentage}%`,"red"
         );
     }else if (current > initial) {
     var profit = (current - initial) * quantity;
-    var profitPercentage = (profit / initial) * 100;
+    var profitPercentage = (profit * 100) / (initial * quantity);
 
     showOutput(
-      `Hey, the profit is ${profit} and the percent is ${profitPercentage}%`
+      `Hey, the profit is ${profit} and the percent is ${profitPercentage}%`,"green"
     );
   } else {
-    showOutput(`No pain no gain and no gain no pain`);
+    showOutput(`No pain no gain and no gain no pain`, "green");
   }
 }
 
-function showOutput(message) {
+function showOutput(message , color) {
   outputBox.innerHTML = message;
+  outputBox.style.color = color;
 }
 
 }
